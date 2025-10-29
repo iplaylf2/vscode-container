@@ -1,0 +1,12 @@
+{
+	"build": {
+		"args": {
+			"SDK_VERSION": "${localEnv:SDK_VERSION}"
+		},
+		"dockerfile": "../${localEnv:DOCKER_FILE_PATH}"
+	},
+	"initializeCommand": "docker volume create ${localEnv:VSCODE_CONTAINER_PROJECT}",
+	"postCreateCommand": "sudo chown vscode ${containerWorkspaceFolder}",
+	"workspaceFolder": "/mnt/${localEnv:VSCODE_CONTAINER_PROJECT}",
+	"workspaceMount": "source=${localEnv:VSCODE_CONTAINER_PROJECT},target=/mnt/${localEnv:VSCODE_CONTAINER_PROJECT},type=volume"
+}
