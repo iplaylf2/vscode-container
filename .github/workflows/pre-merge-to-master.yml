@@ -26,22 +26,20 @@ jobs:
 
           mapfile -t dockerfiles < <(find images -type f -name 'Dockerfile' -print | sort)
           if [ "${#dockerfiles[@]}" -eq 0 ]; then
-            echo "matrix=[]" >>"$GITHUB_OUTPUT"
+            echo 'matrix=[]' >>"$GITHUB_OUTPUT"
             exit 0
           fi
 
-          matrix_json=$(printf '%s\n' "${dockerfiles[@]}" | jq -R -s -c '
-            split("\n")
-            | map(select(length > 0))
-            | map(
-                . as $path
-                | ($path | split("/")) as $parts
-                | {
-                    name: $parts[-2],
-                    context: ($parts[:-1] | join("/")),
-                    file: $path
-                  }
-              )')
+          matrix_json=$(
+            for dockerfile in "${dockerfiles[@]}"; do
+              [ -z "${dockerfile}" ] && continue
+              context=$(dirname "${dockerfile}")
+              name=$(basename "${context}")
+              jq -nc \
+                --arg name "${name}" --arg context "${context}" --arg file "${dockerfile}" \
+                '{name: $name, context: $context, file: $file}'
+            done | jq -s '.'
+          )
 
           echo "Discovered matrix: ${matrix_json}"
           echo "matrix=${matrix_json}" >>"$GITHUB_OUTPUT"
