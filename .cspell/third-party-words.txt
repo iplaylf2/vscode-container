@@ -1,6 +1,9 @@
+buildx
 coderabbit
 coderabbitai
 devcontainers
 dockerfiles
 docstrings
+mapfile
+pipefail
 shellcheck

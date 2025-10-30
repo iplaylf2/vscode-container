@@ -1,0 +1,85 @@
+name: On Pre-Merge to Master
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [master]
+
+jobs:
+  discover-images:
+    name: Discover Images
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      matrix: ${{ steps.collect.outputs.matrix }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Collect Image Metadata
+        id: collect
+        run: |
+          set -euo pipefail
+
+          mapfile -t dockerfiles < <(find images -type f -name 'Dockerfile' -print | sort)
+          if [ "${#dockerfiles[@]}" -eq 0 ]; then
+            echo "matrix=[]" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          matrix_json=$(printf '%s\n' "${dockerfiles[@]}" | jq -R -s -c '
+            split("\n")
+            | map(select(length > 0))
+            | map(
+                . as $path
+                | ($path | split("/")) as $parts
+                | {
+                    name: $parts[-2],
+                    context: ($parts[:-1] | join("/")),
+                    file: $path
+                  }
+              )')
+
+          echo "Discovered matrix: ${matrix_json}"
+          echo "matrix=${matrix_json}" >>"$GITHUB_OUTPUT"
+
+  build-images:
+    name: Build ${{ matrix.image.name }} Image
+    needs: discover-images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    strategy:
+      matrix:
+        image: ${{ fromJson(needs.discover-images.outputs.matrix) }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.image.name }} Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.image.context }}
+          file: ${{ matrix.image.file }}
+          push: false
+          provenance: false
+          cache-from: type=gha,scope=${{ github.workflow }}-${{ matrix.image.name }}
+          cache-to: type=gha,scope=${{ github.workflow }}-${{ matrix.image.name }},mode=max
+
+  summarize:
+    name: Summarize Image Build Results
+    needs: build-images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Report Build Status
+        run: |
+          echo "Image build job outcome: ${{ needs.build-images.result }}"
