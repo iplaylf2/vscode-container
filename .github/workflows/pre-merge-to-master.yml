@@ -74,12 +74,22 @@ jobs:
           cache-from: type=gha,scope=${{ github.workflow }}-${{ matrix.image.name }}
           cache-to: type=gha,scope=${{ github.workflow }}-${{ matrix.image.name }},mode=max
 
-  summarize:
-    name: Summarize Image Build Results
+  report-build-status:
+    name: Report Image Build Status
     needs: build-images
+    if: ${{ always() }}
     runs-on: ubuntu-latest
-
     steps:
       - name: Report Build Status
         run: |
-          echo "Image build job outcome: ${{ needs.build-images.result }}"
+          result='${{ needs.build-images.result }}'
+          level="notice"
+
+          if [ "${result}" != "success" ]; then
+            level="error"
+          fi
+
+          echo "::${level}::Image build job outcome: ${result}"
+          if [ "${result}" != "success" ]; then
+            exit 1
+          fi
