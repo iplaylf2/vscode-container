@@ -1,2 +1,5 @@
+coderabbit
 devcontainers
-Dockerfiles
+dockerfiles
+docstrings
+shellcheck
