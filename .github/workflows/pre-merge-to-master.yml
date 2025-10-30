@@ -38,7 +38,7 @@ jobs:
               jq -nc \
                 --arg name "${name}" --arg context "${context}" --arg file "${dockerfile}" \
                 '{name: $name, context: $context, file: $file}'
-            done | jq -s '.'
+            done | jq -sc '.'
           )
 
           echo "Discovered matrix: ${matrix_json}"
