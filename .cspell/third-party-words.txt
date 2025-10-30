@@ -1,4 +1,5 @@
 coderabbit
+coderabbitai
 devcontainers
 dockerfiles
 docstrings
