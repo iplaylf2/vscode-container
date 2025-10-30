@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+reviews:
+  profile: "assertive"
+  auto_title_instructions: |
+    Format: <type>(<scope>): <subject>
+    <scope> is optional
+    Type: chore, docs, feat, fix, refactor, style, or test.
+  fail_commit_status: true
+  sequence_diagrams: false
+  suggested_reviewers: false
+  poem: false
+  auto_review:
+    labels:
+      - "!no bot reviewer"
+  pre_merge_checks:
+    docstrings:
+      mode: off
+    title:
+      mode: off
+  tools:
+    hadolint:
+      enabled: true
+    markdownlint:
+      enabled: true
+    shellcheck:
+      enabled: true
+language: "en-US"
