@@ -13,9 +13,5 @@ ENV PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 
 ARG SDK_VERSION=LTS
 
-RUN --mount=\
-    type=bind,\
-    from=builder,\
-    source=/builder/dotnet-install.sh,\
-    target=/builder/dotnet-install.sh \
+RUN --mount=type=bind,from=builder,source=/builder/dotnet-install.sh,target=/builder/dotnet-install.sh \
     /builder/dotnet-install.sh --channel $SDK_VERSION
