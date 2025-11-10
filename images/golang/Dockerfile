@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/devcontainers/base:latest AS builder
 
-ARG GO_VERSION=1.25.4
+ARG SDK_VERSION=1.25.4
 WORKDIR /builder
 
-ADD https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz go.tar.gz
+ADD https://go.dev/dl/go${SDK_VERSION}.linux-amd64.tar.gz go.tar.gz
 
 
 FROM mcr.microsoft.com/devcontainers/base:latest
