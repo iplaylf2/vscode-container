@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/devcontainers/base:latest
 
-
 USER vscode
 ARG SDK_VERSION=""
 
