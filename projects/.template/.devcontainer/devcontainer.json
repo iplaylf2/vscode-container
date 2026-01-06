@@ -1,0 +1,11 @@
+{
+	"name": "${localEnv:VSCODE_CONTAINER_PROJECT}",
+	"dockerComposeFile": [
+		"../../../compose-base/docker-compose.yaml",
+		"../docker-compose.yaml"
+	],
+	"service": "devcontainer",
+	"workspaceFolder": "/mnt/${localEnv:VSCODE_CONTAINER_PROJECT}",
+	"postCreateCommand": "sudo chown vscode ${containerWorkspaceFolder}",
+	"overrideCommand": true
+}
