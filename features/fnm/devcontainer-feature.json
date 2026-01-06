@@ -7,7 +7,7 @@
     "nodeVersion": {
       "type": "string",
       "default": "lts",
-      "description": "Node.js version to install with fnm (use 'none' to skip)."
+      "description": "Node.js version to install with fnm. Use 'none' to skip."
     }
   }
 }
