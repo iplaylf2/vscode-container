@@ -1,5 +1,7 @@
 services:
   devcontainer:
+    build:
+      context: ..
     volumes:
       - devcontainer-workspace:/mnt/${VSCODE_CONTAINER_PROJECT}
 
