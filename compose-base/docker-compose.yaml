@@ -1,3 +1,5 @@
+name: ${VSCODE_CONTAINER_PROJECT}
+
 services:
   devcontainer:
     build:
