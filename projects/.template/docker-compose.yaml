@@ -1,0 +1,10 @@
+services:
+  devcontainer:
+    # Base settings come from ../../compose-base/docker-compose.yaml via dockerComposeFile.
+    build:
+      context: ../..
+      # Pick the Dockerfile that matches your dev environment.
+      dockerfile: images/base/Dockerfile
+      args:
+        # Optional: toolchain version for Dockerfiles that accept SDK_VERSION.
+        SDK_VERSION: 0

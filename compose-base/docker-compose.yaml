@@ -1,0 +1,8 @@
+services:
+  devcontainer:
+    volumes:
+      - devcontainer-workspace:/mnt/${VSCODE_CONTAINER_PROJECT}
+
+volumes:
+  devcontainer-workspace:
+    name: ${VSCODE_CONTAINER_PROJECT}
