@@ -6,7 +6,9 @@ fi
 set -euo pipefail
 
 curl -fsSL https://fnm.vercel.app/install | bash
-. "$HOME/.bashrc"
+
+FNM_PATH="$HOME/.local/share/fnm"
+export PATH="$FNM_PATH:$PATH"
 
 NODE_VERSION="${NODE_VERSION:-lts}"
 if [ "$NODE_VERSION" != "none" ]; then
