@@ -5,7 +5,7 @@
 	],
 	"name": "${localWorkspaceFolderBasename}",
 	"overrideCommand": true,
-	"postCreateCommand": "sudo chown vscode ${containerWorkspaceFolder}",
+	"postCreateCommand": "sudo chown ${remoteUser} ${containerWorkspaceFolder}",
 	"service": "devcontainer",
 	"workspaceFolder": "/mnt/${localWorkspaceFolderBasename}"
 }
