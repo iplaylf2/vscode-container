@@ -5,7 +5,7 @@ fi
 
 set -euo pipefail
 
-curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -fsSL https://astral.sh/uv/install.sh | sh
 . "$HOME/.local/bin/env"
 
 PYTHON_VERSION="${PYTHON_VERSION:-3}"
