@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ -z "${BASH_VERSION:-}" ] || [ "$(id -un)" != "$_REMOTE_USER" ]; then
-  exec su - "$_REMOTE_USER" -c "bash -lc '$0'"
+  exec su "$_REMOTE_USER" -c "bash -lc '$0'"
 fi
 
 set -euo pipefail
