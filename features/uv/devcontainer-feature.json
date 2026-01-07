@@ -1,0 +1,13 @@
+{
+  "id": "uv",
+  "version": "1.0.0",
+  "name": "uv",
+  "description": "Installs uv and optionally a Python version.",
+  "options": {
+    "pythonVersion": {
+      "type": "string",
+      "default": "3",
+      "description": "Python version to install with uv. Use 'none' to skip."
+    }
+  }
+}

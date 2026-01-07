@@ -1,11 +1,11 @@
 {
-	"name": "${localEnv:VSCODE_CONTAINER_PROJECT}",
-	"dockerComposeFile": [
-		"../../../compose-base/docker-compose.yaml",
-		"../docker-compose.yaml"
+	"dockerComposeFile": "../docker-compose.yaml",
+	"mounts": [
+		"source=workspace,target=${containerWorkspaceFolder},type=volume"
 	],
+	"name": "${localWorkspaceFolderBasename}",
+	"overrideCommand": true,
+	"postCreateCommand": "sudo chown $(id -un) ${containerWorkspaceFolder}",
 	"service": "devcontainer",
-	"workspaceFolder": "/mnt/${localEnv:VSCODE_CONTAINER_PROJECT}",
-	"postCreateCommand": "sudo chown vscode ${containerWorkspaceFolder}",
-	"overrideCommand": true
+	"workspaceFolder": "/mnt/${localWorkspaceFolderBasename}"
 }

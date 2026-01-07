@@ -1,0 +1,13 @@
+{
+  "id": "fnm",
+  "version": "1.0.0",
+  "name": "Fast Node Manager (fnm)",
+  "description": "Installs fnm and optionally a Node.js version.",
+  "options": {
+    "nodeVersion": {
+      "type": "string",
+      "default": "lts",
+      "description": "Node.js version to install with fnm. Use 'none' to skip."
+    }
+  }
+}
