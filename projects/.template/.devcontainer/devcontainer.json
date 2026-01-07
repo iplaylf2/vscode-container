@@ -1,7 +1,7 @@
 {
 	"dockerComposeFile": "../docker-compose.yaml",
 	"mounts": [
-		"source=workspace,target=/mnt/${localWorkspaceFolderBasename},type=volume"
+		"source=workspace,target=${containerWorkspaceFolder},type=volume"
 	],
 	"name": "${localWorkspaceFolderBasename}",
 	"overrideCommand": true,
