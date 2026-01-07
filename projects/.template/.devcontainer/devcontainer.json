@@ -5,7 +5,7 @@
 	],
 	"name": "${localWorkspaceFolderBasename}",
 	"overrideCommand": true,
-	"postCreateCommand": "sudo chown ${remoteUser} ${containerWorkspaceFolder}",
+	"postCreateCommand": "sudo chown $(id -un) ${containerWorkspaceFolder}",
 	"service": "devcontainer",
 	"workspaceFolder": "/mnt/${localWorkspaceFolderBasename}"
 }
