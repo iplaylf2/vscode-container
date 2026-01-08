@@ -12,3 +12,11 @@ Prerequisites: Docker is available on the host, and VS Code has the `ms-vscode-r
 4. Open `projects/<your-project-name>` in VS Code and run `Dev Containers: Reopen in Container`.
 
 After the container is created, VS Code opens the workspace at `/mnt/<your-project-name>`. The data lives in a Docker volume named `<your-project-name>_workspace`.
+
+## Notes
+
+This repo uses symlinks under `projects/.template` (for shared `features` and `images`). On Windows, enable symlink support in this repo with:
+
+```powershell
+git config --local core.symlinks true
+```
