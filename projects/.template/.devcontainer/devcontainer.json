@@ -1,5 +1,9 @@
 {
 	"dockerComposeFile": "../docker-compose.yaml",
+	"features": {
+		// Use local features from this repo.
+		// "./features/uv": {}
+	},
 	"mounts": [
 		"source=workspace,target=${containerWorkspaceFolder},type=volume"
 	],

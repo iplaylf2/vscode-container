@@ -2,7 +2,7 @@ services:
   devcontainer:
     build:
       # Pick the Dockerfile that matches your dev environment.
-      dockerfile: ../../images/base/Dockerfile
+      dockerfile: images/base/Dockerfile
       args:
         # Optional: toolchain version for Dockerfiles that accept SDK_VERSION.
         SDK_VERSION: 0
