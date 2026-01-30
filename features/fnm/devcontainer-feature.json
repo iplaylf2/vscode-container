@@ -1,7 +1,7 @@
 {
   "id": "fnm",
   "version": "1.0.0",
-  "name": "Fast Node Manager (fnm)",
+  "name": "fnm",
   "description": "Installs fnm and optionally a Node.js version.",
   "options": {
     "nodeVersion": {
