@@ -6,4 +6,5 @@ dockerfiles
 docstrings
 mapfile
 pipefail
+shadowenv
 shellcheck

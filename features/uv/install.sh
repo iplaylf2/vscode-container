@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-if [ -z "${BASH_VERSION:-}" ] || [ "$(id -un)" != "$_REMOTE_USER" ]; then
-  exec su "$_REMOTE_USER" -c "bash -lc '$0'"
-fi
-
 set -euo pipefail
 
-curl -fsSL https://astral.sh/uv/install.sh | sh
-. "$HOME/.local/bin/env"
+FEATURE_DIR="$(cd "$(dirname "$0")" && pwd)"
+UV_SCRIPT="$FEATURE_DIR/uv-install.sh"
 
 PYTHON_VERSION="${PYTHON_VERSION:-3}"
-if [ "$PYTHON_VERSION" != "none" ]; then
-  uv python install --default "$PYTHON_VERSION"
+
+if [[ "$(id -un)" != "$_REMOTE_USER" ]]; then
+    su - "$_REMOTE_USER" -c "/bin/bash $(printf '%q ' "$UV_SCRIPT" "$PYTHON_VERSION")"
+else
+    /bin/bash "$UV_SCRIPT" "$PYTHON_VERSION"
 fi

@@ -7,6 +7,9 @@ reviews:
     <scope> is optional
     Type: chore, docs, feat, fix, refactor, style, or test.
   fail_commit_status: true
+  request_changes_workflow: true
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
   sequence_diagrams: false
   suggested_reviewers: false
   poem: false
@@ -18,11 +21,4 @@ reviews:
       mode: off
     title:
       mode: off
-  tools:
-    hadolint:
-      enabled: true
-    markdownlint:
-      enabled: true
-    shellcheck:
-      enabled: true
 language: "en-US"
