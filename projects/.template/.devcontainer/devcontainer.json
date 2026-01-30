@@ -11,5 +11,5 @@
 	"overrideCommand": true,
 	"postCreateCommand": "sudo chown $(id -un) ${containerWorkspaceFolder}",
 	"service": "devcontainer",
-	"workspaceFolder": "/mnt/${localWorkspaceFolderBasename}"
+	"workspaceFolder": "/src/${localWorkspaceFolderBasename}"
 }

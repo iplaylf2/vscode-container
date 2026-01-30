@@ -11,7 +11,7 @@ Prerequisites: Docker is available on the host, and VS Code has the `ms-vscode-r
 3. Edit `projects/<your-project-name>/docker-compose.yaml` as needed.
 4. Open `projects/<your-project-name>` in VS Code and run `Dev Containers: Reopen in Container`.
 
-After the container is created, VS Code opens the workspace at `/mnt/<your-project-name>`. The data lives in a Docker volume named `<your-project-name>_workspace`.
+After the container is created, VS Code opens the workspace at `/src/<your-project-name>`. The data lives in a Docker volume named `<your-project-name>_workspace`.
 
 ## Notes
 
