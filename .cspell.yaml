@@ -12,5 +12,7 @@ dictionaries:
   - project-words
   - third-party-words
 useGitignore: true
+enableGlobDot: true
 ignorePaths:
   - /.cspell
+  - /.git
