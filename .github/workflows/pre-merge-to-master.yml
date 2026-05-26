@@ -1,4 +1,4 @@
-name: On Pre-Merge to Master
+name: Pre-merge to master
 
 on:
   pull_request:
@@ -6,8 +6,30 @@ on:
     branches: [master]
 
 jobs:
+  lint-repository:
+    name: Lint repository
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run repository checks
+        run: |
+          nix develop path:./.nix -c .dev/scripts/check.sh
+
   discover-images:
-    name: Discover Images
+    name: Discover images
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     permissions:
@@ -16,10 +38,10 @@ jobs:
       matrix: ${{ steps.collect.outputs.matrix }}
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v6
 
-      - name: Collect Image Metadata
+      - name: Collect image metadata
         id: collect
         run: |
           set -euo pipefail
@@ -45,7 +67,7 @@ jobs:
           echo "matrix=${matrix_json}" >>"$GITHUB_OUTPUT"
 
   build-images:
-    name: Build ${{ matrix.image.name }} Image
+    name: Build ${{ matrix.image.name }} image
     needs: discover-images
     runs-on: ubuntu-latest
     permissions:
@@ -56,14 +78,14 @@ jobs:
         image: ${{ fromJson(needs.discover-images.outputs.matrix) }}
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v6
 
-      - name: Set Up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
 
-      - name: Build ${{ matrix.image.name }} Image
-        uses: docker/build-push-action@v6
+      - name: Build ${{ matrix.image.name }} image
+        uses: docker/build-push-action@v7
         with:
           context: ${{ matrix.image.context }}
           file: ${{ matrix.image.file }}
@@ -73,12 +95,13 @@ jobs:
           cache-to: type=gha,scope=${{ github.workflow }}-${{ matrix.image.name }},mode=max
 
   report-build-status:
-    name: Report Image Build Status
+    name: Report image build status
     needs: build-images
     if: ${{ always() }}
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
-      - name: Report Build Status
+      - name: Report build status
         run: |
           result='${{ needs.build-images.result }}'
           level="notice"

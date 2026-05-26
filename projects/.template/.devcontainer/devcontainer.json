@@ -1,15 +1,13 @@
 {
-	"dockerComposeFile": "../docker-compose.yaml",
-	"features": {
-		// Use local features from this repo.
-		// "./features/uv": {}
-	},
-	"mounts": [
-		"source=workspace,target=${containerWorkspaceFolder},type=volume"
-	],
-	"name": "${localWorkspaceFolderBasename}",
-	"overrideCommand": true,
-	"postCreateCommand": "sudo chown $(id -un) ${containerWorkspaceFolder}",
-	"service": "devcontainer",
-	"workspaceFolder": "/src/${localWorkspaceFolderBasename}"
+  "dockerComposeFile": "../docker-compose.yaml",
+  "features": {
+    // Use local features from this repo.
+    // "./features/uv": {}
+  },
+  "mounts": ["source=workspace,target=${containerWorkspaceFolder},type=volume"],
+  "name": "${localWorkspaceFolderBasename}",
+  "overrideCommand": true,
+  "postCreateCommand": "sudo chown $(id -un) ${containerWorkspaceFolder}",
+  "service": "devcontainer",
+  "workspaceFolder": "/src/${localWorkspaceFolderBasename}"
 }
