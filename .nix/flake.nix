@@ -1,11 +1,6 @@
 {
   description = "Repository maintenance tooling for vscode-container";
 
-  nixConfig.extra-experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs =
