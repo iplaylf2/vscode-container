@@ -1,7 +1,8 @@
-{pkgs}: {
+{ pkgs }:
+{
   packages = with pkgs; [
-    alejandra
     cspell
+    nixfmt-tree
     oxfmt
   ];
 }
