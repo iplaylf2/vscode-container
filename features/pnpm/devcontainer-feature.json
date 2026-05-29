@@ -1,0 +1,13 @@
+{
+  "id": "pnpm",
+  "version": "1.0.0",
+  "name": "pnpm",
+  "description": "Installs pnpm and optionally a Node.js version.",
+  "options": {
+    "nodeVersion": {
+      "type": "string",
+      "default": "lts",
+      "description": "Node.js version to install with pnpm runtime after pnpm is installed. Use 'none' to skip."
+    }
+  }
+}
