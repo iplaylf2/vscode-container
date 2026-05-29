@@ -6,7 +6,7 @@
   "options": {
     "pythonVersion": {
       "type": "string",
-      "default": "3",
+      "default": "latest",
       "description": "Python version to install with uv. Use 'none' to skip."
     }
   }
